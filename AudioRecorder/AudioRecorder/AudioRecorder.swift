@@ -178,8 +178,6 @@ class AudioRecorder: NSObject {
   func deinitialize() {
     stopRecording()
     stopPlaying()
-    stopPlaybackTimer()
-    stopRecordingTimer()
   }
   
   private func stopRecording() {

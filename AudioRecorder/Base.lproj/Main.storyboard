@@ -16,8 +16,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="vHO-tX-O59">
-                                <rect key="frame" x="0.0" y="196" width="393" height="529.33333333333337"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="vHO-tX-O59">
+                                <rect key="frame" x="0.0" y="225.99999999999997" width="393" height="469.33333333333326"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="error" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KBe-XR-PAB">
                                         <rect key="frame" x="0.0" y="0.0" width="393" height="20.333333333333332"/>
@@ -26,20 +26,20 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pj4-Ut-K4W">
-                                        <rect key="frame" x="0.0" y="60.333333333333314" width="393" height="54"/>
+                                        <rect key="frame" x="0.0" y="40.333333333333314" width="393" height="54"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="45"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VC8-gA-mII" customClass="WaveformLiveView" customModule="AudioRecorder" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="154.33333333333331" width="393" height="240"/>
+                                        <rect key="frame" x="0.0" y="114.33333333333331" width="393" height="240"/>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="240" id="yP3-wT-rdV"/>
                                         </constraints>
                                     </view>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="H8q-2a-agN">
-                                        <rect key="frame" x="0.0" y="434.33333333333337" width="393" height="95"/>
+                                        <rect key="frame" x="0.0" y="374.33333333333337" width="393" height="95"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="wtP-9G-TZK">
                                                 <rect key="frame" x="87.666666666666686" y="0.0" width="218" height="95"/>
