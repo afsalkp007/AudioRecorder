@@ -15,8 +15,20 @@
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AUDIO RECORDER" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xok-ve-lpc">
+                                <rect key="frame" x="44.666666666666657" y="405" width="304" height="42"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="35"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="xok-ve-lpc" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="cvQ-gh-fCq"/>
+                            <constraint firstItem="xok-ve-lpc" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="wQp-9z-VUg"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="MyH-2C-eQg"/>
                 </viewController>
