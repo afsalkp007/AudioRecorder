@@ -17,8 +17,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     window = UIWindow(windowScene: scene)
     let vc = AudioRecorderController()
     let navigationController = UINavigationController(rootViewController: vc)
-    navigationController.navigationBar.prefersLargeTitles = true
-    navigationController.title = "Record Audio"
     window?.rootViewController = navigationController
     window?.makeKeyAndVisible()
   }

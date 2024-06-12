@@ -8,7 +8,7 @@
 import UIKit
 import AVFoundation
 
-class AudioRecorderController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
+class AudioRecorderController: UIViewController {
   
   private var outputFileType: AVFileType = .mp4
   
@@ -23,7 +23,7 @@ class AudioRecorderController: UIViewController, AVAudioRecorderDelegate, AVAudi
   // MARK: Members
   
   private let contentView = AudioRecorderView()
-
+  
   private var audioRecorder: AVAudioRecorder!
   private var audioPlayer: AVAudioPlayer?
   private let composer = TrackMerger()
@@ -72,10 +72,17 @@ class AudioRecorderController: UIViewController, AVAudioRecorderDelegate, AVAudi
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    setTitle()
     configure()
   }
   
   // MARK: Member Configuration
+  
+  private func setTitle() {
+    navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+    navigationController?.navigationBar.prefersLargeTitles = true
+    self.title = "Record Audio"
+  }
   
   private func configure() {
     state = .empty
@@ -136,23 +143,9 @@ class AudioRecorderController: UIViewController, AVAudioRecorderDelegate, AVAudi
       state = .error(message: error.localizedDescription)
     }
   }
+}
   
-  // MARK: AVAudioRecorderDelegate
-  
-  func audioRecorderEncodeErrorDidOccur(_ recorder: AVAudioRecorder, error: Error?) {
-    state = .error(message: error?.localizedDescription ?? "Error encoding audio")
-  }
-  
-  // MARK: AVAudioPlayerDelegate
-  
-  func audioPlayerDecodeErrorDidOccur(_ player: AVAudioPlayer, error: Error?) {
-    state = .error(message: error?.localizedDescription ?? "Error decoding audio for playback")
-  }
-  
-  func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-    state = .paused
-  }
-  
+extension AudioRecorderController {
   // MARK: Button Targets
   
   @objc
@@ -208,9 +201,9 @@ class AudioRecorderController: UIViewController, AVAudioRecorderDelegate, AVAudi
     
     updateUI(for: state)
   }
-  
-  // MARK: Recording
-  
+}
+
+extension AudioRecorderController {
   private func startRecording() {
     recordingTimestamp = 0
     startRecordingTimer()
@@ -307,9 +300,9 @@ class AudioRecorderController: UIViewController, AVAudioRecorderDelegate, AVAudi
   private func stopPlaybackTimer() {
     playingTimer?.invalidate()
   }
-  
-  // MARK: UI Updates
-  
+}
+
+extension AudioRecorderController {
   private func updateUI(for state: State) {
     updateTimestampLabel(for: state)
     updateRecordButton(for: state)
@@ -404,5 +397,21 @@ class AudioRecorderController: UIViewController, AVAudioRecorderDelegate, AVAudi
                       options: [.transitionCrossDissolve, .curveEaseInOut, .beginFromCurrentState, .allowUserInteraction],
                       animations: changes,
                       completion: nil)
+  }
+}
+
+extension AudioRecorderController: AVAudioRecorderDelegate {
+  func audioRecorderEncodeErrorDidOccur(_ recorder: AVAudioRecorder, error: Error?) {
+    state = .error(message: error?.localizedDescription ?? "Error encoding audio")
+  }
+}
+
+extension AudioRecorderController: AVAudioPlayerDelegate {
+  func audioPlayerDecodeErrorDidOccur(_ player: AVAudioPlayer, error: Error?) {
+    state = .error(message: error?.localizedDescription ?? "Error decoding audio for playback")
+  }
+  
+  func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+    state = .paused
   }
 }
