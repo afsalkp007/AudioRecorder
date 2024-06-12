@@ -19,6 +19,7 @@ class AudioRecorder: NSObject {
   
   var updateUI: ((State) -> Void)?
   var updateTimestamp: ((TimeInterval) -> Void)?
+  var updateSamples: ((Float) -> Void)?
   
   private var recordingTimer: Timer?
   private var playingTimer: Timer?
@@ -30,13 +31,13 @@ class AudioRecorder: NSObject {
       stateDidChange()
     }
   }
-
+  
   private var outputFileType: AVFileType = .mp4
-
+  
   var audioRecorder: AVAudioRecorder!
   var audioPlayer: AVAudioPlayer?
   private let composer = TrackMerger()
-
+  
   var outputURL: URL!
   
   var recordingTimestamp: TimeInterval = 0 {
@@ -51,7 +52,7 @@ class AudioRecorder: NSObject {
       updateTimestamp?(playbackTimestamp)
     }
   }
-
+  
   func configureOutputURL() {
     outputURL = newRecordingURL
   }
@@ -110,14 +111,20 @@ class AudioRecorder: NSObject {
     let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
     return URL(fileURLWithPath: documentsPath).appendingPathComponent(filename)
   }
-
+  
   func configureAudioRecorder(with url: URL? = nil) {
-    let settings = [AVFormatIDKey: kAudioFormatMPEG4AAC, AVSampleRateKey: 16000, AVNumberOfChannelsKey: 2]
+    let settings: [String: Any] = [
+      AVFormatIDKey: NSNumber(value: kAudioFormatAppleLossless),
+      AVSampleRateKey: 44100.0,
+      AVNumberOfChannelsKey: 1,
+      AVEncoderAudioQualityKey: AVAudioQuality.min.rawValue
+    ]
     do {
       audioRecorder = try AVAudioRecorder(url: url ?? newRecordingURL, settings: settings)
+      audioRecorder.isMeteringEnabled = true
       audioRecorder.delegate = self
       let session = AVAudioSession.sharedInstance()
-      try session.setCategory(AVAudioSession.Category.playAndRecord)
+      try session.setCategory(.playAndRecord, mode: .default, options: [])
       try session.setActive(true)
       try session.overrideOutputAudioPort(.speaker)
     } catch {
@@ -133,19 +140,16 @@ class AudioRecorder: NSObject {
       state = .error(message: error.localizedDescription)
     }
   }
-
+  
   func startRecording() {
     recordingTimestamp = 0
-    startRecordingTimer()
     audioRecorder.deleteRecording()
-    audioRecorder.isMeteringEnabled = true
-    audioRecorder.record()
+    startRecordingTimerAndWave()
   }
   
   func resumeRecording() {
     configureAudioRecorder(with: newRecordingURL)
-    startRecordingTimer()
-    audioRecorder.record()
+    startRecordingTimerAndWave()
   }
   
   func pauseRecording() {
@@ -174,6 +178,8 @@ class AudioRecorder: NSObject {
   func deinitialize() {
     stopRecording()
     stopPlaying()
+    stopPlaybackTimer()
+    stopRecordingTimer()
   }
   
   private func stopRecording() {
@@ -183,11 +189,16 @@ class AudioRecorder: NSObject {
     }
   }
   
-  private func startRecordingTimer() {
+  private func startRecordingTimerAndWave() {
     stopRecordingTimer()
-    recordingTimer = Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true) {
-      [weak self] _ in
-      self?.recordingTimestamp += 1
+    audioRecorder.record()
+    recordingTimer = Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true) { [weak self] _ in
+      guard let self = self else { return }
+      self.recordingTimestamp += 1
+      
+      audioRecorder.updateMeters() // gets the current value
+      let sample = 1 - pow(10, audioRecorder.averagePower(forChannel: 0) / 20)
+      self.updateSamples?(sample)
     }
   }
   
@@ -235,7 +246,7 @@ class AudioRecorder: NSObject {
   func stopPlaybackTimer() {
     playingTimer?.invalidate()
   }
-
+  
 }
 
 extension AudioRecorder: AVAudioRecorderDelegate {

@@ -10,25 +10,25 @@ import UIKit
 class AudioRecorderController: UIViewController {
   let audRecorder = AudioRecorder()
   
-  // MARK: Members
+  @IBOutlet private(set) weak var errorLabel: UILabel!
+  @IBOutlet private(set) weak var timestampLabel: UILabel!
+  @IBOutlet private(set) weak var recordButton: UIButton!
+  @IBOutlet private(set) weak var playButton: UIButton!
+  @IBOutlet private(set) weak var waveformView: WaveformLiveView!
   
-  private let contentView = AudioRecorderView()
-    
-  // MARK: Lifecycle
+  required init?(coder: NSCoder) {
+    super.init(coder: coder)
+  }
   
   deinit {
     audRecorder.deinitialize()
-  }
-  
-  override func loadView() {
-    edgesForExtendedLayout = []
-    view = contentView
   }
   
   override func viewDidLoad() {
     super.viewDidLoad()
     setTitle()
     configure()
+    configureSubviews()
     
     audRecorder.updateUI = { [weak self] state in
       self?.updateUI(for: state)
@@ -37,6 +37,42 @@ class AudioRecorderController: UIViewController {
     audRecorder.updateTimestamp = { [weak self] timestamp in
       self?.updateTimestampLabel(with: timestamp)
     }
+    
+    audRecorder.updateSamples = { [weak self] sample in
+      guard let self = self else { return }
+      self.waveformView.add(sample: sample)
+    }
+  }
+  
+  private func configureSubviews() {
+    errorLabel.textAlignment = .center
+    errorLabel.textColor = .red
+    errorLabel.font = UIFont.preferredFont(forTextStyle: .body)
+    errorLabel.numberOfLines = 0
+    
+    timestampLabel.textAlignment = .center
+    timestampLabel.textColor = .white
+    
+    let timestampFont = UIFont.monospacedDigitSystemFont(ofSize: 45, weight: UIFont.Weight.bold)
+    timestampLabel.font = timestampFont
+    
+    func image(named name: String) -> UIImage? {
+      return UIImage(named: name, in: Bundle(for: Self.self), compatibleWith: nil)
+    }
+    
+    recordButton.setImage(image(named: "Record Button"), for: .normal)
+    recordButton.setImage(image(named: "Record Button Highlighted"), for: .highlighted)
+    recordButton.setImage(image(named: "Record Button Disabled"), for: .disabled)
+    recordButton.setImage(image(named: "Stop Button"), for: .selected)
+    recordButton.setImage(image(named: "Stop Button Highlighted"), for: [.selected, .highlighted])
+    recordButton.setImage(image(named: "Stop Button Disabled"), for: [.selected, .disabled])
+    
+    playButton.setImage(image(named: "Play Button"), for: .normal)
+    playButton.setImage(image(named: "Play Button Highlighted"), for: .highlighted)
+    playButton.setImage(image(named: "Play Button Disabled"), for: .disabled)
+    playButton.setImage(image(named: "Pause Button"), for: .selected)
+    playButton.setImage(image(named: "Pause Button Highlighted"), for: [.selected, .highlighted])
+    playButton.setImage(image(named: "Pause Button Disabled"), for: [.selected, .disabled])
   }
   
   // MARK: Member Configuration
@@ -53,8 +89,6 @@ class AudioRecorderController: UIViewController {
     
     configureButtonTargets()
     audRecorder.configureOutputURL()
-    // The audio recorder starts recording at the outputURL.
-    // Each time the recorder is paused, it begins recording to a new temporary file.
     audRecorder.configureAudioRecorder(with: audRecorder.outputURL)
     
     audRecorder.recordingTimestamp = 0
@@ -62,12 +96,12 @@ class AudioRecorderController: UIViewController {
   }
   
   private func configureButtonTargets() {
-    contentView.recordButton.addTarget(self, action: #selector(recordTapped), for: .touchUpInside)
-    contentView.playButton.addTarget(self, action: #selector(playTapped), for: .touchUpInside)
+    recordButton.addTarget(self, action: #selector(recordTapped), for: .touchUpInside)
+    playButton.addTarget(self, action: #selector(playTapped), for: .touchUpInside)
   }
   
 }
-  
+
 extension AudioRecorderController {
   // MARK: Button Targets
   
@@ -99,7 +133,7 @@ extension AudioRecorderController {
   }
   
   private func updateTimestampLabel(for state: State) {
-    let label = contentView.timestampLabel
+    guard let label = timestampLabel else { return }
     switch state {
     case .empty, .paused:
       label.textColor = UIColor.white.withAlphaComponent(0.5)
@@ -118,11 +152,11 @@ extension AudioRecorderController {
     let min = t / 3600
     let format = "%02d:%02d"
     let timestamp = String(format: format, min, sec, mil)
-    contentView.timestampLabel.text = timestamp
+    timestampLabel.text = timestamp
   }
   
   private func updateRecordButton(for state: State) {
-    let button = contentView.recordButton
+    guard let button = recordButton else { return }
     button.animate {
       switch state {
       case .empty:
@@ -145,7 +179,7 @@ extension AudioRecorderController {
   }
   
   private func updatePlayButton(for state: State) {
-    let button = contentView.playButton
+    guard let button = playButton else { return }
     button.animate {
       switch state {
       case .empty:
@@ -168,7 +202,7 @@ extension AudioRecorderController {
   }
   
   private func updateErrorLabel(for state: State) {
-    let label = contentView.errorLabel
+    guard let label = errorLabel else { return }
     switch state {
     case .error(let message):
       label.text = message

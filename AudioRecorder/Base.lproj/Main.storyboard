@@ -1,9 +1,110 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="7aB-bg-cnH">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <scenes/>
+    <scenes>
+        <!--Audio Recorder Controller-->
+        <scene sceneID="V54-bB-w1D">
+            <objects>
+                <viewController storyboardIdentifier="AudioRecorderController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="OJM-U7-qPO" customClass="AudioRecorderController" customModule="AudioRecorder" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ut8-gZ-Oc0">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="vHO-tX-O59">
+                                <rect key="frame" x="0.0" y="196" width="393" height="529.33333333333337"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="error" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KBe-XR-PAB">
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="20.333333333333332"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pj4-Ut-K4W">
+                                        <rect key="frame" x="0.0" y="60.333333333333314" width="393" height="54"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="45"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VC8-gA-mII" customClass="WaveformLiveView" customModule="AudioRecorder" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="154.33333333333331" width="393" height="240"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="240" id="yP3-wT-rdV"/>
+                                        </constraints>
+                                    </view>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="H8q-2a-agN">
+                                        <rect key="frame" x="0.0" y="434.33333333333337" width="393" height="95"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="wtP-9G-TZK">
+                                                <rect key="frame" x="87.666666666666686" y="0.0" width="218" height="95"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3sJ-GS-6gW">
+                                                        <rect key="frame" x="0.0" y="0.0" width="105" height="95"/>
+                                                        <state key="normal" title="Button"/>
+                                                        <buttonConfiguration key="configuration" style="plain" image="Play Button"/>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DT8-25-Qjw">
+                                                        <rect key="frame" x="113" y="0.0" width="105" height="95"/>
+                                                        <state key="normal" title="Button"/>
+                                                        <buttonConfiguration key="configuration" style="plain" image="Record Button"/>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="aFX-Tr-Bts"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="aFX-Tr-Bts" firstAttribute="trailing" secondItem="vHO-tX-O59" secondAttribute="trailing" id="R3r-LH-OVJ"/>
+                            <constraint firstItem="vHO-tX-O59" firstAttribute="leading" secondItem="aFX-Tr-Bts" secondAttribute="leading" id="e4U-oo-RCy"/>
+                            <constraint firstItem="vHO-tX-O59" firstAttribute="centerY" secondItem="aFX-Tr-Bts" secondAttribute="centerY" id="gZn-uR-9gx"/>
+                            <constraint firstItem="aFX-Tr-Bts" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="vHO-tX-O59" secondAttribute="bottom" constant="15" id="jmc-Ko-pVN"/>
+                            <constraint firstItem="vHO-tX-O59" firstAttribute="top" relation="greaterThanOrEqual" secondItem="ut8-gZ-Oc0" secondAttribute="top" constant="15" id="uFP-TC-3Vr"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="UEk-0P-PzD"/>
+                    <connections>
+                        <outlet property="errorLabel" destination="KBe-XR-PAB" id="Iyd-0b-ab6"/>
+                        <outlet property="playButton" destination="3sJ-GS-6gW" id="HMv-u6-6Zr"/>
+                        <outlet property="recordButton" destination="DT8-25-Qjw" id="Bpt-K2-Yx7"/>
+                        <outlet property="timestampLabel" destination="pj4-Ut-K4W" id="JEm-yd-bzv"/>
+                        <outlet property="waveformView" destination="VC8-gA-mII" id="ePw-EU-ZjZ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CTD-Z0-GYH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="559.5419847328244" y="-11.267605633802818"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="muU-B8-Lez">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="7aB-bg-cnH" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="lD8-hI-OQQ">
+                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="OJM-U7-qPO" kind="relationship" relationship="rootViewController" id="Zgg-3M-9fV"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="S98-d4-hB7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-305" y="-11"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="Play Button" width="81" height="81"/>
+        <image name="Record Button" width="81" height="81"/>
+    </resources>
 </document>
