@@ -16,6 +16,7 @@
 		F4B527C52C18B97200D98F6B /* AudioRecorderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B527C42C18B97200D98F6B /* AudioRecorderController.swift */; };
 		F4B527C72C18BA0E00D98F6B /* AudioRecorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B527C62C18BA0E00D98F6B /* AudioRecorderView.swift */; };
 		F4B527C82C18C1AB00D98F6B /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40918722C1890BE0070DF7B /* UIView+Extensions.swift */; };
+		F4B527F42C198C6E00D98F6B /* AudioRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B527F32C198C6E00D98F6B /* AudioRecorder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		F40918732C1890BE0070DF7B /* TrackMerger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackMerger.swift; sourceTree = "<group>"; };
 		F4B527C42C18B97200D98F6B /* AudioRecorderController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorderController.swift; sourceTree = "<group>"; };
 		F4B527C62C18BA0E00D98F6B /* AudioRecorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorderView.swift; sourceTree = "<group>"; };
+		F4B527F32C198C6E00D98F6B /* AudioRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +71,7 @@
 				F40918692C1890790070DF7B /* LaunchScreen.storyboard */,
 				F409186C2C1890790070DF7B /* Info.plist */,
 				F4B527C42C18B97200D98F6B /* AudioRecorderController.swift */,
+				F4B527F32C198C6E00D98F6B /* AudioRecorder.swift */,
 				F4B527C62C18BA0E00D98F6B /* AudioRecorderView.swift */,
 				F40918732C1890BE0070DF7B /* TrackMerger.swift */,
 				F40918722C1890BE0070DF7B /* UIView+Extensions.swift */,
@@ -148,6 +151,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F409185F2C1890770070DF7B /* AppDelegate.swift in Sources */,
+				F4B527F42C198C6E00D98F6B /* AudioRecorder.swift in Sources */,
 				F40918612C1890770070DF7B /* SceneDelegate.swift in Sources */,
 				F40918762C1890BE0070DF7B /* TrackMerger.swift in Sources */,
 				F4B527C52C18B97200D98F6B /* AudioRecorderController.swift in Sources */,

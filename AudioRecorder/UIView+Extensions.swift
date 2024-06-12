@@ -35,4 +35,15 @@ extension UIView {
   var rightMargin: NSLayoutXAxisAnchor {
     return layoutMarginsGuide.rightAnchor
   }
+  
+  // MARK: Animate
+  
+  func animate(_ changes: @escaping () -> Void) {
+    UIView.transition(with: self,
+                      duration: 0.3,
+                      options: [.transitionCrossDissolve, .curveEaseInOut, .beginFromCurrentState, .allowUserInteraction],
+                      animations: changes,
+                      completion: nil)
+  }
+
 }
